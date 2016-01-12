@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<title>Test-Driven Development</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<!-- configuration parameters -->
+		<meta name="defaultView" content="slideshow" />
+		<meta name="controlVis" content="hidden" />
+		
+		<!-- favicon -->
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+		
+		<!-- stylesheet links -->
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+		<link href="https://static1.squarespace.com/static/ta/5594f9fce4b0c1a905697ba1/579/assets/fonts/calluna/stylesheet.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="/ui/default/slides.css" type="text/css" media="projection" id="slideProj" />
+		<link rel="stylesheet" href="/ui/default/outline.css" type="text/css" media="screen" id="outlineStyle" />
+		<link rel="stylesheet" href="/ui/default/print.css" type="text/css" media="print" id="slidePrint" />
+		<link rel="stylesheet" href="/ui/default/opera.css" type="text/css" media="projection" id="operaFix" />
+				
+		<!-- S5 JS -->
+		<script src="/ui/default/slides.js" type="text/javascript"></script>
+		
+	</head>
+	<body>
+		<div class="layout">
+			<div id="controls"></div>
+			<div id="currentSlide"></div>
+			<div id="header"></div>
+			<div id="footer">
+				<h1>Microservices for controlling the Internet of Things using Spring Boot</h1>
+				<h2>West Midlands Java User Group, 19th January 2016</h2>
+			</div>
+		</div>
+		
+		<div class="presentation">
+		
+			<div class="slide">
+				<h1>Microservices for controlling the Internet of Things using Spring Boot</h1>
+				<h2>West Midlands Java User Group, 19th January 2016</h2>
+				<h3>Ruth Mills</h3>
+				<h4>Java Lead Developer, Connect Group</h4>
+			</div>
+			
+			<div class="slide">
+				<h1>What is the Internet of Things?</h1>
+				<ul>
+					<li>Network-connected devices that control/monitor things in your house</li>
+					<li><b>Wi-Fi controlled light bulbs</b> - e.g. EasyBulb, Philips Hue, LiFX</li>
+					<li><b>Wi-Fi controlled electric sockets</b> - e.g. WIFIPLUG, Belkin WeMo</li>
+					<li><b>Wi-Fi controlled heating</b>, e.g. Nest, Hive, Drayton miGenie</li>
+					<li><b>Energy usage/Solar Generation monitoring</b> - e.g. OpenEnergyMonitor, OWL, GreenEnergyOptions</li>
+					<li><b>Network connected white goods</b> - e.g. fridges, washing machines, dishwashers</li>
+					<li><b>Network connected entertainment</b> - e.g. Netflix, Sonos, Logitech Media Server</li>
+				</ul>
+			</div>
+			
+			<div class="slide">
+				<h1>The Problem</h1>
+				<ul>
+					<li>Getting all these devices from disparate manufacturers to work together</li>
+					<li>Each tends to come with its own smartphone app, usually for iOS and/or Android</li>
+					<li>They are essentially all network devices talking TCP/IP or UDP on your network</li>
+					<li>Many, e.g. WIFIPLUG, are reliant on a proprietary application running in the cloud</li>
+					<li>Security implications of having a cloud application controlling devices in your house</li>
+					<li>OpenHAB looked promising, but had a fairly steep learning curve, e.g. learning its own domain-specific language to configure it</li>
+				</ul>
+			</div>
+			
+			<div class="slide">
+				<h1>My Solution</h1>
+				<ul>
+					<li>Create a Spring Boot application running on a Raspberry Pi on my local network</li>
+					<li>This will have a REST API for each type of Internet of Things device that I own</li>
+					<li>Invoking an endpoint on the REST API will cause the Spring Boot application to send commands to the appropriate IoT device on the network</li>
+					<li>This abstracts away the underlying protocol of each device</li>
+					<li>I can then create a webapp to control all my IoT devices by calling the appropriate REST commands over HTTP</li>
+				</ul>
+			</div>
+			
+			<div class="slide">
+				<h1>The Advantages</h1>
+				<ul>
+					<li><b>Security/Reliability</b> - everything stays inside my local network rather than relying on the cloud - much harder to hack, and it keeps on ticking even if the Internet goes down</li>
+					<li><b>Flexibility</b> - the microservices approach using REST just exposes the IoT devices within the local network so they can be controlled via the REST API, rather than dictating <i>how</i> they are controlled</li>
+					<li><b>Extensibility</b> - the REST API can also be used to integrate other control mechanisms, e.g. Mycroft.ai or Jasper voice control</li>
+				</ul>
+			</div>
+			
+			<div class="slide">
+				<h1>Code Example/Demo</h1>
+				<ul>
+					<li>Spring Boot application to control my <b>EasyBulb</b> LED lights in the lounge</li>
+					<li>Here's one I prepared earlier - video of the Spring Boot application in action at my house</li>
+				</ul>
+			</div>
+			
+			<div class="slide">
+				<h1>The Future</h1>
+				<ul>
+					<li><b>Security Improvements</b> - set up the Raspberry Pi as a firewalled access point (with its own SSID) for IoT devices to connect to - thus quarantined away from the rest of my network</li>
+					<li><b>Reverse Engineering</b> - not all devices have an API - so I will need to reverse engineer the protocols of devices that don't - e.g. by interrogating network packets on the Raspberry Pi access point</li>
+					<li><b>Rules to control multiple devices</b> - via a separate webapp that calls the REST microservices, e.g. if the solar panels are generating above <i>x</i> kW of spare capacity, turn the washing machine on</li>
+					<li><b>Integration with Mycroft.ai</b> - I should be receiving my Mycroft units in the summer after supporting their Kickstarter last year</li>
+				</ul>
+			</div>
+				
+		</div>
+	</body>
+</html>
